@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h1>File Uploader</h1>
+
+
+<div th:if="${message}">
+    <h2 th:text="${message}"></h2>
+</div>
+
+
+<form method="POST" action="/upload" enctype="multipart/form-data">
+<table>
+    <tr><td>Browse and Select a File to Upload: </td><td><input type="file" name="file" /></td></tr>
+    <tr><td> Enter File Owner name: </td><td><input type="text" value="" name="owner" /></td></tr>
+     <tr><td>Enter Destination directory: </td><td><input type="text" value="" name="destination"/></td></tr>
+    <tr><td></td><td><input type="submit" value="Upload File and List All" /></td></tr>
+</table>
+</form>
+
+<br/><br/><br/><br/><br/>
+
+<h1>Find File by Owner Name</h1>
+
+<form method="POST" action="/fetchFileMeta" >
+    <table><tr><td>Enter Owner Name: </td><td><input type="text" value="" name="owner" /></td></tr>
+    <tr><td></td><td><input type="submit" value="Get Files by Owner or List All" /></td></tr>
+    </table>
+</form>
+
+<br/><br/><br/><br/><br/>
+
+<h1>Find File smaller than given size in bytes</h1>
+
+<form method="POST" action="/fetchLessThanMaxSize" >
+    <table><tr><td>Enter Max file size in byte: </td><td><input type="text" value="0" name="size" /></td></tr>
+    <tr><td></td><td><input type="submit" value="List smaller files" /></td></tr>
+    </table>
+</form>
+
+<br/><br/><br/><br/><br/>
+
+<h1>List File Metadata Results</h1>
+
+<table class="table table-striped" cellpadding="20" cellspacing="20">
+			<thead>
+				<tr>
+				    <th>Id</th>
+					<th>File Name</th>
+					<th>Owner</th>
+					<th>Posted On</th>
+					<th>Size</th>
+					<th>Destination</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="file : ${fileList}">
+					<td th:text="${file.id}">Id</td>
+					<td th:text="${file.name}">Name</td>
+					<td th:text="${file.owner}">Owner</td>
+					<td th:text="${file.postedOn}">Posted ON</td>
+					<td th:text="${file.size}">Size</td>
+					<td th:text="${file.destinationDirectoy}">Destination Directory</td>
+				</tr>
+			</tbody>
+</table>
+
+</body>
+</html>
